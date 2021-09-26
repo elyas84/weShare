@@ -1,0 +1,15 @@
+.home {
+  display: flex;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.feed {
+  flex: 1;
+  margin-right: 0.5rem;
+}
+.postFeed {
+}
+/* .posts::-webkit-scrollbar {
+    display: none; 
+} */

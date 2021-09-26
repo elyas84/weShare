@@ -1,0 +1,48 @@
+.login {
+    border: 1px solid lightgray;
+    max-width: 500px;
+    padding: 1rem;
+    margin: 0 auto;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+.login  h2 {
+    margin-bottom: 3rem;
+}
+.login > form {
+    width: 100%;
+}
+.loginInput {
+    border: 1px solid lightgray;
+    padding: .5rem;
+    margin: 1rem 0;
+}
+.loginInput input {
+    width: 100%;
+    border: none;
+    outline: none;
+}
+.loginInput  button {
+    background: transparent;
+    border: none;
+    margin-right: 1rem;
+}
+.btn {
+    background-color: rgb(59, 151, 187)
+    
+}
+.btn .loginBtn {
+  
+    width: 100%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #fff;
+}
+.btn:hover {
+    background-color: rgb(52, 134, 167)
+    
+}

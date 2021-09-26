@@ -1,0 +1,131 @@
+.header {
+  background-color: rgb(74, 166, 223);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 2%;
+  z-index: 999;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+.sectionA {
+  flex: 0.5;
+}
+.sectionA a {
+  color: #fff;
+}
+.sectionB {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border: 1px solid #fff;
+  padding: 0.4rem;
+  border-radius: 20px;
+  background-color: #fff;
+}
+.sectionB button {
+  background: transparent;
+  border: none;
+  margin-right: 1rem;
+  color: gray;
+}
+.sectionB form {
+  border: none;
+  width: 100%;
+}
+.sectionB form input {
+  border: none;
+  width: 100%;
+  background: transparent;
+  outline: none;
+}
+.sectionB form input::placeholder {
+  color: gray;
+  font-size: 1rem;
+}
+
+.sectionC {
+  flex: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.groupOne button {
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+.groupOne button i {
+  font-size: 1.2rem;
+  margin: 0 1rem;
+}
+
+.userIcon,
+.notificationIcon {
+  position: relative;
+}
+.numBadge {
+  position: absolute;
+  top: -12px;
+  right: 0px;
+  background-color: rgb(209, 52, 52);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+.groupTwo {
+  margin-left: 1rem;
+  position: relative;
+}
+.profilePicture {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.profilePicture  img {
+  object-fit: cover;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  
+  margin-right: .5rem;
+}
+
+.navOption {
+  position: fixed;
+  top: 50px;
+  right: -300px;
+  width: 250px;
+  height: 100vh;
+  background-color: rgb(74, 166, 223);
+  transition: all .2s ease-in-out;
+
+}
+.navOption.active {
+    position: fixed;
+    top: 50px;
+    right: 0;
+    width: -250px;
+    height: 100vh;
+    background-color: rgb(74, 166, 223);   
+}
+.navOption ul {
+  list-style: none;
+  text-align: center;
+}
+
+.navOption ul li {
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+.navOption ul li a {
+  color: #fff;
+}
+.navOption ul li:hover {
+  background-color: rgb(37, 111, 156);
+}

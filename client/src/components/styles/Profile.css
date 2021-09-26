@@ -1,0 +1,112 @@
+.myProfile {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.start {
+  flex: 0.5;
+  border: 1px solid lightgray;
+  margin-right: 0.5rem;
+  padding: 1rem;
+}
+
+.following > h5 {
+  background-color: lightgray;
+  padding: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.follower > h5 {
+  background-color: lightgray;
+  padding: 0.3rem;
+  margin: 0.5rem 0;
+}
+.left {
+  flex: 1;
+}
+
+.cardHeader {
+  position: relative;
+}
+
+.profileCard {
+  width: 100%;
+  height: auto;
+  border: 1px solid lightgray;
+  padding: 0.5rem;
+}
+.profilBg > img {
+  object-fit: cover;
+  width: 100%;
+  max-height: 250px;
+  opacity: 0.7;
+}
+
+.profileImg {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+.profileImg > img {
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.right {
+  flex: 0.5;
+  border: 1px solid lightgray;
+  margin-left: 0.5rem;
+  padding: 1rem;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.friendInfo {
+  margin-top: 1rem;
+}
+.cardBody span {
+  margin-left: 1rem;
+}
+.friendInfo button {
+  background: transparent;
+  border: none;
+}
+
+.followSpan {
+  cursor: pointer;
+  border: 1px solid lightgray;
+  padding: 0.3rem;
+}
+.followSpan:hover {
+  background-color: black;
+  color: #fff;
+}
+
+.right > h4 {
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.updateInputs {
+  border: 1px solid lightgray;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+.updateInputs input {
+  display: none;
+}
+label .fa-camera,
+label .fa-image {
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+label .fa-camera {
+  margin-bottom: 1rem;
+}

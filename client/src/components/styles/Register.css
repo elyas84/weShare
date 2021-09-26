@@ -1,0 +1,48 @@
+.register {
+    border: 1px solid lightgray;
+    max-width: 500px;
+    padding: 1rem;
+    margin: 0 auto;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+.register  h2 {
+    margin-bottom: 3rem;
+}
+.register > form {
+    width: 100%;
+}
+.registerInput {
+    border: 1px solid lightgray;
+    padding: .5rem;
+    margin: 1rem 0;
+}
+.registerInput input {
+    width: 100%;
+    border: none;
+    outline: none;
+}
+.registerInput  button {
+    background: transparent;
+    border: none;
+    margin-right: 1rem;
+}
+.regbtn {
+    background-color: rgb(187, 59, 138);
+    
+}
+.regbtn .registerBtn {
+  
+    width: 100%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #fff;
+}
+.regbtn:hover {
+    background-color: rgb(167, 54, 123);
+    
+}

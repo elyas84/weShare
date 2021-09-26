@@ -1,0 +1,117 @@
+.post {
+  border: 1px solid lightgray;
+  background-color: #fff;
+  margin: 1rem 0;
+}
+.post_header {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  margin-right: 0.4rem;
+}
+.avatar img {
+  object-fit: cover;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+.post_body > img {
+  object-fit: cover;
+  max-height: 350px;
+  min-width: 100%;
+  overflow-x: hidden;
+}
+
+.caption {
+  padding: 1rem;
+}
+
+.post_footer {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+.post_footer > button {
+  font-size: 1.3rem;
+  background: transparent;
+  border: none;
+  border: 1px solid lightgray;
+  padding: 0.3rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.like {
+  margin-right: 1rem;
+}
+
+.post .fa-clokc {
+  margin-right: 1rem;
+}
+.postDate {
+  margin-left: 1rem;
+}
+
+.time {
+  margin-left: 1rem;
+}
+
+.commentArea {
+  padding: 0.2rem 0;
+  width: 100%;
+  border: 1px solid lightgray;
+  border-left: none;
+  border-right: none;
+  padding: 0.5rem;
+  visibility: hidden;
+  opacity: 0;
+  transition: all.1s ease-in-out;
+}
+
+
+/** when button got clicked **/
+
+.commentArea.active {
+    padding: 0.2rem 0;
+    width: 100%;
+    border: 1px solid lightgray;
+    border-left: none;
+    border-right: none;
+    padding: 0.5rem;
+    visibility: visible;
+    opacity: 1;
+    transition: all.1s ease-in-out;
+  }
+.commentArea > form {
+  width: 100%;
+}
+.commentInput {
+  display: flex;
+  padding: 0.5rem;
+}
+
+.commentArea > form input {
+  width: 100%;
+  outline: none;
+  border: none;
+}
+.type {
+  margin-right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+}
+.send {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  border: 1px solid green;
+  padding: 0.3rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.send:hover {
+  transform: scale(1.2);
+}
