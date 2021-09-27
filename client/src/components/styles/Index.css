@@ -14,7 +14,6 @@
 .registerBox {
   position: relative;
   flex: 1;
-  background-color: rgb(219, 77, 165);
   width: 100%;
   height: 100%;
 }

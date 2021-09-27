@@ -17,14 +17,17 @@
     width: 100%;
 }
 .loginInput {
+    display: flex;
     border: 1px solid lightgray;
     padding: .5rem;
     margin: 1rem 0;
+    align-items: center;
 }
 .loginInput input {
     width: 100%;
     border: none;
     outline: none;
+    padding: .5rem;
 }
 .loginInput  button {
     background: transparent;

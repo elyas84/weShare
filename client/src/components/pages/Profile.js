@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Profile.css";
 import Post from "../layouts/Post";
 export default function Profile() {
+
   return (
     <div className="myProfile">
       <div className="start">
@@ -49,7 +50,7 @@ export default function Profile() {
       </div>
       <div className="right">
         <h4>Update Profile</h4>
-        <form>
+           <form>
           <div className="updateInputs">
             <label htmlFor="bg">
               <i className="fas fa-camera"></i>Background image
@@ -63,6 +64,8 @@ export default function Profile() {
             <input type="file" id="profile" />
           </div>
         </form>
+      
+       
       </div>
     </div>
   );

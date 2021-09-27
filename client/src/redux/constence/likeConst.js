@@ -1,0 +1,12 @@
+export const LIKE_REQUEST = "LIKE_REQUEST";
+export const LIKE_SUCCESS = "LIKE_SUCCESS";
+export const LIKE_FAIL = "LIKE_FAIL";
+
+export const UNLIKE_REQUEST = "UNLIKE_REQUEST";
+export const UNLIKE_SUCCESS = "UNLIKE_SUCCESS";
+export const UNLIKE_FAIL = "UNLIKE_FAIL";
+
+
+export const LIKE_LIST_REQUEST = "LIKE_LIST_REQUEST";
+export const LIKE_LIST_SUCCESS = "LIKE_LIST_SUCCESS";
+export const LIKE_LIST_FAIL = "LIKE_LIST_FAIL";

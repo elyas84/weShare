@@ -17,6 +17,8 @@
     width: 100%;
 }
 .registerInput {
+    display: flex;
+    align-items: center;
     border: 1px solid lightgray;
     padding: .5rem;
     margin: 1rem 0;
@@ -25,6 +27,7 @@
     width: 100%;
     border: none;
     outline: none;
+    padding: .5rem;
 }
 .registerInput  button {
     background: transparent;

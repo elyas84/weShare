@@ -11,7 +11,7 @@ export default function Login() {
               <i className="far fa-envelope"></i>
             </button>
           </label>
-          <input type="text" placeholder="Enter your emai" />
+          <input type="email" placeholder="Enter your emai" />
         </div>
         <div className="loginInput">
           <label>
@@ -19,7 +19,7 @@ export default function Login() {
               <i className="fas fa-key"></i>
             </button>
           </label>
-          <input type="text" placeholder="Enter your passoword" />
+          <input type="password" placeholder="Enter your passoword" />
         </div>
         <div className="loginInput btn">
           <button className="loginBtn">Login</button>
