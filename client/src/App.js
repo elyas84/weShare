@@ -8,15 +8,15 @@ import Index from "./components/pages/Index";
 export default function App() {
   return (
     <Router>
-      <Switch>
-        <div className="App">
-          <Header />
+      <div className="App">
+        <Header />
+        <Switch>
           <Route exact path="/" component={Index}></Route>
-          
+
           <Route exact path="/home" component={Home}></Route>
           <Route exact path="/profile" component={Profile}></Route>
-        </div>
-      </Switch>
+        </Switch>
+      </div>
     </Router>
   );
 }

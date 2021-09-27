@@ -33,9 +33,9 @@ export const userRegReducer = (state = {}, action) => {
       return {
         loading: false,
         userInformation: action.payload,
-        registersuccess: true,
+        registerSuccess: true,
       };
-    case User - USER_REG_FAIL:
+    case  USER_REG_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -43,7 +43,7 @@ export const userRegReducer = (state = {}, action) => {
     case USER_REG_REST:
       return {
         ...state,
-        registersuccess: false,
+        registerSuccess: false,
       };
     default:
       return state;

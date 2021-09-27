@@ -95,9 +95,9 @@ exports.register = async (req, res) => {
 // @access public
 
 exports.login = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
     // Mathching the password witch comes from the userSchema
     if (user && (await user.verifyPassword(password))) {
       const generatedToken = (id) => {
