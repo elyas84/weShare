@@ -7,13 +7,13 @@ import { useHistory } from "react-router-dom";
 export default function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const loginUser = useSelector((state) => state.userLogin);
-  const { loading, userInformation, loginSuccess, error } = loginUser;
+  const loginUser = useSelector((state) => state.loginOfUser);
+  const { loading, userInfo, loginSuccess, error } = loginUser;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState(null);
   useEffect(() => {
-    if (userInformation && userInformation.name && loginSuccess) {
+    if (userInfo && userInfo.name && loginSuccess) {
       setMsg("Login Succsess!");
       setTimeout(() => {
         history.push("/home");
@@ -21,7 +21,7 @@ export default function Login() {
     } else {
       history.push("/");
     }
-  }, [history, loginSuccess, userInformation, msg]);
+  }, [history, loginSuccess, userInfo, msg]);
 
   const submitHandler = (e) => {
     e.preventDefault();

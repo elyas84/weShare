@@ -23,11 +23,9 @@ const userSchema = new mongoose.Schema(
     },
     profilePicture: {
       type: String,
-      default: null,
     },
     coverPicture: {
       type: String,
-      default: null,
     },
 
     followers: {
@@ -38,7 +36,7 @@ const userSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
- 
+
     password: {
       type: String,
       required: true,

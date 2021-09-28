@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../redux/actions/userAction";
 import { useHistory } from "react-router-dom";
 export default function Header() {
-  const loginUser = useSelector((state) => state.userLogin);
-  const { userInformation } = loginUser;
+  const loginUser = useSelector((state) => state.loginOfUser);
+  const { userInfo } = loginUser;
   const dispatch = useDispatch();
   const history = useHistory();
   const [clicked, setClicked] = useState(false);
@@ -16,10 +16,10 @@ export default function Header() {
   };
 
   useEffect(() => {
-    if (!userInformation) {
+    if (!userInfo) {
       history.push("/");
     }
-  }, [history, userInformation]);
+  }, [history, userInfo]);
 
   const logoutHandler = () => {
     dispatch(userLogout());
@@ -27,7 +27,7 @@ export default function Header() {
   };
   return (
     <div className="header">
-      {userInformation && userInformation.name ? (
+      {userInfo && userInfo.username && !userInfo.isAdmin ? (
         <>
           <div className="sectionA">
             <h1>
@@ -56,18 +56,67 @@ export default function Header() {
             <div className="groupTwo">
               <div className="profilePicture" onClick={showMenu}>
                 <Link to="/profile">
-                  <img
-                    src="https://i.pinimg.com/originals/e1/3f/36/e13f36a858f53f2f6918113e787d8d4a.jpg"
-                    alt=""
-                  />
+                <img src={"/api/uploads/image?filename=" +userInfo.profilePicture} alt="" />
                 </Link>
 
-                <span>Elyas</span>
+                <span>{userInfo.username}</span>
               </div>
               <div className={clicked ? "navOption active" : "navOption"}>
                 <ul>
                   <li onClick={showMenu}>
                     <Link to="/profile">Profile</Link>
+                  </li>
+                  <li onClick={logoutHandler}>
+                    <Link to="/" onClick={showMenu}>
+                      Logout
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : userInfo && userInfo.username && userInfo.isAdmin ? (
+        <>
+          <div className="sectionA">
+            <h1>
+              <Link to="/home">WeShare</Link>
+            </h1>
+          </div>
+          <div className="sectionB">
+            <button className="searchIcon">
+              <i className="fas fa-search"></i>
+            </button>
+            <form>
+              <input type="text" placeholder="Search friends" />
+            </form>
+          </div>
+          <div className="sectionC">
+            <div className="groupOne">
+              <button className="userIcon">
+                <i className="fas fa-user"></i>
+                <div className="numBadge">3</div>
+              </button>
+              <button className="notificationIcon">
+                <i className="fas fa-bell"></i>
+                <div className="numBadge">3</div>
+              </button>
+            </div>
+            <div className="groupTwo">
+              <div className="profilePicture" onClick={showMenu}>
+                <Link to="/profile">
+                <img src={"/api/uploads/image?filename=" +userInfo.profilePicture} alt="" />
+                </Link>
+
+                <span>{userInfo.username}</span>
+              </div>
+              <div className={clicked ? "navOption active" : "navOption"}>
+                <ul>
+                  <li onClick={showMenu}>
+                    <Link to="/profile">Profile</Link>
+                  </li>
+                  <li onClick={showMenu}>
+                    <Link to="/users">my users</Link>
                   </li>
                   <li onClick={logoutHandler}>
                     <Link to="/" onClick={showMenu}>

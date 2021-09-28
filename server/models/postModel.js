@@ -8,11 +8,10 @@ const postSchema = new mongoose.Schema(
     },
     desc: {
       type: String,
-      required: true,
       min: 5,
       max: 1000,
     },
-    image: {
+    imagePost: {
       type: String,
     },
     likes: {

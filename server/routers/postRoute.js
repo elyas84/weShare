@@ -5,7 +5,7 @@ const postController = require("../controllers/postController");
 
 router
   .route("/")
-  .get(private, admin, postController.getPosts)
+  .get(private, postController.getPosts)
   .post(private, postController.createPost);
 router
   .route("/:id")

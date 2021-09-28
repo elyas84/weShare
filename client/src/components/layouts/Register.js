@@ -5,8 +5,8 @@ import { register } from "../../redux/actions/userAction";
 import { USER_REG_REST } from "../../redux/constence/userConst";
 export default function Register() {
   const dispatch = useDispatch();
-  const registerUser = useSelector((state) => state.userRegister);
-  const { loading, userInformation, registerSuccess, error } = registerUser;
+  const registerUser = useSelector((state) => state.registerOfUser);
+  const { loading, userInfo, registerSuccess, error } = registerUser;
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -15,14 +15,14 @@ export default function Register() {
   const [msg, setMsg] = useState(null);
 
   useEffect(() => {
-    if (userInformation && registerSuccess) {
+    if (userInfo && registerSuccess) {
       setMsg("Register Succsess!");
 
       dispatch({
         type: USER_REG_REST,
       });
     }
-  }, [registerSuccess, userInformation, dispatch, msg]);
+  }, [registerSuccess, userInfo, dispatch, msg]);
 
   const submitHandler = (e) => {
     e.preventDefault();

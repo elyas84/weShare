@@ -44,12 +44,12 @@ exports.getPost = async (req, res) => {
 // @access private
 
 exports.createPost = async (req, res) => {
-  const { desc, image } = req.body;
+  const { desc, imagePost } = req.body;
 
   try {
     const post = new Post({
       desc,
-      image,
+      imagePost,
       createdBy: req.user._id,
     });
 
@@ -77,11 +77,11 @@ exports.editPost = async (req, res) => {
       });
     } else {
       post.desc = req.body.desc || post.desc;
-      post.image = req.body.image || post.image;
+      post.imagePost = req.body.imagePost || post.imagePost;
       const updatedPost = await post.save();
       res.status(200).json({
         desc: updatedPost.desc,
-        image: updatedPost.image,
+        imagePost: updatedPost.imagePost,
       });
     }
   } catch (error) {

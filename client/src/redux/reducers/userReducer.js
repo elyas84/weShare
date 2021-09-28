@@ -1,12 +1,12 @@
 import {
-  USER_REG_REQUEST,
-  USER_REG_SUCCESS,
-  USER_REG_FAIL,
-  USER_REG_REST,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+  USER_REG_REQUEST,
+  USER_REG_SUCCESS,
+  USER_REG_FAIL,
+  USER_REG_REST,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
@@ -22,20 +22,20 @@ import {
   USER_PROFILE_UPDATE_REST,
 } from "../constence/userConst";
 
-export const userRegReducer = (state = {}, action) => {
+export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_REG_REQUEST:
       return {
+        userInfo: {},
         loading: true,
-        userInformation: {},
       };
     case USER_REG_SUCCESS:
       return {
         loading: false,
-        userInformation: action.payload,
+        userInfo: action.payload,
         registerSuccess: true,
       };
-    case  USER_REG_FAIL:
+    case USER_REG_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -59,7 +59,7 @@ export const userLoginReducer = (state = {}, action) => {
     case USER_LOGIN_SUCCESS:
       return {
         loading: false,
-        userInformation: action.payload,
+        userInfo: action.payload,
         loginSuccess: true,
       };
     case USER_LOGIN_FAIL:
@@ -112,7 +112,7 @@ export const userUpdateProfileReducer = (state = {}, action) => {
     case USER_PROFILE_UPDATE_SUCCESS:
       return {
         loading: false,
-        userInformation: action.payload,
+        userInfo: action.payload,
         updateSuccess: true,
       };
     case USER_PROFILE_UPDATE_FAIL:
@@ -132,14 +132,13 @@ export const userListReducer = (state = { users: [] }, action) => {
   switch (action.type) {
     case USER_LIST_REQUEST:
       return {
-        ...state,
         loading: true,
       };
 
     case USER_LIST_SUCCESS:
       return {
         loading: false,
-        users: action.payload,
+        users: action.payload.data,
       };
 
     case USER_LIST_FAIL:
@@ -163,7 +162,7 @@ export const userDeleteReducer = (state = {}, action) => {
     case USER_DELETE_SUCCESS:
       return {
         loading: false,
-        deleteSuccess: true,
+        success: true,
       };
     case USER_DELETE_FAIL:
       return {

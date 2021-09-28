@@ -95,11 +95,13 @@
 }
 
 .updateInputs {
+  display: flex;
+  align-items: center;
   border: 1px solid lightgray;
   padding: 0.5rem;
   margin-bottom: 1rem;
 }
-.updateInputs input {
+.updateInputs input[type= "file"]{
   display: none;
 }
 label .fa-camera,
@@ -109,4 +111,20 @@ label .fa-image {
 }
 label .fa-camera {
   margin-bottom: 1rem;
+}
+.updateInputs input {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: .5rem;
+  background: transparent;
+
+}
+.updateInputs  button {
+  border: none;
+}
+.updateBtn {
+  width: 100%;
+  padding: .5rem;
+  
 }
