@@ -8,9 +8,11 @@
 }
 .upperBox {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
 }
+
 .userPic img {
+   
   object-fit: cover;
   width: 40px;
   height: 40px;

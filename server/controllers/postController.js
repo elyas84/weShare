@@ -7,7 +7,7 @@ const User = require("../models/userModel");
 
 exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate("createdBy", "username");
+    const posts = await Post.find().populate("createdBy", "username profilePicture _id");
     if (posts && posts.length === 0) {
       return res.status(404).json({
         message: "There are no posts found",
@@ -95,7 +95,7 @@ exports.editPost = async (req, res) => {
 exports.userPost = async (req, res) => {
   try {
     const myposts = await Post.find({ createdBy: req.user._id })
-      .populate("createdBy", "username")
+      .populate("createdBy", "username profilePicture")
       .sort("created");
     if (myposts && myposts.length === 0) {
       return res.status(404).json({ message: "There is no post" });

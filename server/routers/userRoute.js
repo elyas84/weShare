@@ -10,7 +10,7 @@ router.route("/").get(private, admin, userController.getUsers);
 router
   .route("/profile")
   .put(private, userController.updateProfile)
-  .get(private, userController.updateProfile);
+  .get(private, userController.userProfile);
 // DELETE ACCOUNT
 router
   .route("/:id")

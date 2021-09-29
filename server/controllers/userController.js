@@ -28,6 +28,7 @@ exports.getUsers = async (req, res) => {
 exports.getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("-password");
+
     if (!user) {
       return res.status(404).json({
         message: "There is no user",
@@ -35,7 +36,7 @@ exports.getUser = async (req, res) => {
     }
     return res.status(200).json(user);
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     res.status(500).json({
       message: error,
     });
@@ -131,16 +132,14 @@ exports.login = async (req, res) => {
 // @route /api/users/profile
 // access private
 
-exports.userProfile = async(req, res)=>{
-
+exports.userProfile = async (req, res) => {
   try {
-    const user = await findById(req.user._id)
-    if(!user) {
+    const user = await User.findById(req.user._id); // loggedin user
+    if (!user) {
       return res.status(400).json({
-        message: "User must be logged in."
-      })
-    }
-    else {
+        message: "User must be logged in.",
+      });
+    } else {
       return res.status(200).json({
         _id: user._id,
         name: user.name,
@@ -151,19 +150,15 @@ exports.userProfile = async(req, res)=>{
         followers: user.followers,
         followings: user.followings,
         isAdmin: user.isAdmin,
-      
       });
     }
-
   } catch (error) {
     console.log(error);
     res.status(500).json({
       message: error,
     });
   }
-}
-
-
+};
 
 // @desc updated the userInfo
 // @route /api/users/profile
@@ -200,6 +195,7 @@ exports.updateProfile = async (req, res) => {
       email: updatedUser.email,
       profilePicture: updatedUser.profilePicture,
       coverPicture: updatedUser.coverPicture,
+      isAdmin: updatedUser.isAdmin,
       token: generatedTokenAfterUpdate(updatedUser._id),
     });
   } catch (error) {

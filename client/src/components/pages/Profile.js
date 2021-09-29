@@ -4,7 +4,7 @@ import Post from "../layouts/Post";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUserDetails, profileUpdate } from "../../redux/actions/userAction";
-import { getMyPostList, postDelete } from "../../redux/actions/postAction";
+import { getMyPostList} from "../../redux/actions/postAction";
 import { USER_PROFILE_UPDATE_REST } from "../../redux/constence/userConst";
 import axios from "axios";
 
@@ -16,9 +16,8 @@ export default function Profile() {
   const [loginSucc, setLoginSucc] = useState(loginSuccess);
 
   const userDetails = useSelector((state) => state.userDetails);
-  const { user, loading, error } = userDetails;
+  const { user } = userDetails;
 
-  console.log("user: ", user);
 
   const userProfileUpdate = useSelector((state) => state.userProfileUpdate);
   const {
@@ -33,6 +32,7 @@ export default function Profile() {
     loading: myPostListLoading,
     error: myPostListError,
   } = postMyList;
+
 
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -53,10 +53,14 @@ export default function Profile() {
       } else {
         setUsername(user.username);
         setEmail(user.email);
-        setPassword(user.password);
       }
     }
   }, [dispatch, userInfo, user, updateSuccess, history, loginSucc]);
+  useEffect(() => {
+    if (updateSuccess) {
+      window.alert("Your profile now is updated!");
+    }
+  }, [updateSuccess]);
 
   // File handler ProfilePic
   const [uploadingProfile, setUploadingProfile] = useState(false); //
@@ -97,7 +101,7 @@ export default function Profile() {
         },
       };
       const res = await axios.post("/api/uploads/", formData, config);
-      console.log("Bg: ", res.data);
+      // console.log("Bg: ", res.data);
       setBg(res.data);
       setUploading(false);
     } catch (error) {
@@ -107,7 +111,6 @@ export default function Profile() {
   };
   const updateHandler = (e) => {
     e.preventDefault();
-
     dispatch(
       profileUpdate({
         id: user._id,
@@ -153,12 +156,13 @@ export default function Profile() {
             </div>
           </div>
           <div className="cardBody">
-            <h3>{userInfo.name}</h3>
+            <h3>{userInfo.username}</h3>
             <div className="friendInfo">
               <button>
                 {" "}
                 <i className="fas fa-user-friends"></i>
               </button>
+
               <span>10 friends</span>
             </div>
           </div>
@@ -175,7 +179,7 @@ export default function Profile() {
           {myPostListError && (
             <p
               style={{
-                backgroundColor: "red",
+                backgroundColor: "#FE8F8F",
                 color: "#fff",
                 padding: ".5rem",
               }}
@@ -188,7 +192,7 @@ export default function Profile() {
                 <div className="col" key={id}>
                   <Post post={post} />
                 </div>
-              ))
+              )).reverse()
             : null}
         </div>
       </div>

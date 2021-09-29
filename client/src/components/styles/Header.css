@@ -122,6 +122,8 @@
 .navOption ul li {
   padding: 0.5rem 0;
   cursor: pointer;
+  margin: 1rem 0;
+ 
 }
 .navOption ul li a {
   color: #fff;

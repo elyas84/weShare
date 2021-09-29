@@ -7,6 +7,7 @@
   padding: 1rem;
   display: flex;
   align-items: center;
+  position: relative;
 }
 .avatar {
   margin-right: 0.4rem;
@@ -22,6 +23,18 @@
   max-height: 350px;
   min-width: 100%;
   overflow-x: hidden;
+}
+
+.deleteIcon {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+}
+.deleteIcon button {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .caption {
@@ -70,20 +83,19 @@
   transition: all.1s ease-in-out;
 }
 
-
 /** when button got clicked **/
 
 .commentArea.active {
-    padding: 0.2rem 0;
-    width: 100%;
-    border: 1px solid lightgray;
-    border-left: none;
-    border-right: none;
-    padding: 0.5rem;
-    visibility: visible;
-    opacity: 1;
-    transition: all.1s ease-in-out;
-  }
+  padding: 0.2rem 0;
+  width: 100%;
+  border: 1px solid lightgray;
+  border-left: none;
+  border-right: none;
+  padding: 0.5rem;
+  visibility: visible;
+  opacity: 1;
+  transition: all.1s ease-in-out;
+}
 .commentArea > form {
   width: 100%;
 }

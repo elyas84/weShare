@@ -7,13 +7,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getPosts } from "../../redux/actions/postAction";
 export default function Home() {
-
   const history = useHistory();
   const dispatch = useDispatch();
-  const logginByUser = useSelector((state)=>state.loginOfUser)
-  const {userInfo} = logginByUser;
-  
-
+  const logginByUser = useSelector((state) => state.loginOfUser);
+  const { userInfo } = logginByUser;
 
   const postCreate = useSelector((state) => state.postCreate);
   const { postSuccess } = postCreate;
@@ -22,13 +19,17 @@ export default function Home() {
   const { loading, posts, error } = postList;
   console.log("poslist: ", posts);
 
+  const postOfDelete = useSelector((state) => state.postOfDelete);
+  const { deleteSuccess } = postOfDelete;
 
-  useEffect(()=>{
-    if(!userInfo.name){
-      history.push("/")
+  useEffect(() => {
+    if (!userInfo.username) {
+      history.push("/");
     }
+
     dispatch(getPosts());
-  }, [userInfo, history, dispatch, postSuccess]);
+  }, [userInfo, history, dispatch, postSuccess, deleteSuccess]);
+
   return (
     <div className="home">
       <div className="feed">
@@ -36,26 +37,34 @@ export default function Home() {
           <PostForm />
         </div>
         <div className="posts">
-        {loading && (
-        <img
-          src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif "
-          alt="spiner"
-          width="40px"
-          height="40px"
-        ></img>
-      )}
-      {error && (
-        <p style={{ backgroundColor: "red", color: "#fff", padding: ".5rem" }}>
-          {error}
-        </p>
-      )}
-          {posts && posts.length ? posts.map((post, id)=>(
-            <div className="col" key={id}>
-              <Post post={post}/>
-            </div>
-          )).reverse()
-          : null}
-         
+          {loading && (
+            <img
+              src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif "
+              alt="spiner"
+              width="40px"
+              height="40px"
+            ></img>
+          )}
+          {error && (
+            <p
+              style={{
+                backgroundColor: "#FE8F8F",
+                color: "#fff",
+                padding: ".5rem",
+              }}
+            >
+              {error}
+            </p>
+          )}
+          {posts && posts.length
+            ? posts
+                .map((post, id) => (
+                  <div className="col" key={id}>
+                    <Post post={post} />
+                  </div>
+                ))
+                .reverse()
+            : null}
         </div>
       </div>
 
@@ -65,7 +74,6 @@ export default function Home() {
             <Friend />
             <Friend />
             <Friend />
-           
           </li>
         </ul>
       </div>

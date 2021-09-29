@@ -11,7 +11,7 @@ export default function PostForm() {
   const { userInfo } = loginUser;
 
   const postCreate = useSelector((state) => state.postCreate);
-  const { loading, post, postSuccess, error } = postCreate;
+  const { loading, postSuccess, error } = postCreate;
 
   useEffect(() => {
     if (postSuccess) {
@@ -71,6 +71,19 @@ export default function PostForm() {
           </Link>
         </div>
         <div className="userInputBox">
+        {loading && (
+        <img
+          src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif "
+          alt="spiner"
+          width="40px"
+          height="40px"
+        ></img>
+      )}
+      {error && (
+        <p style={{ backgroundColor: "red", color: "#fff", padding: ".5rem" }}>
+          {error}
+        </p>
+      )}
           <form onSubmit={submitHandler}>
             <input
               type="text"

@@ -5,6 +5,7 @@ import "../styles/Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../redux/actions/userAction";
 import { useHistory } from "react-router-dom";
+import Search from "./Search";
 export default function Header() {
   const loginUser = useSelector((state) => state.loginOfUser);
   const { userInfo } = loginUser;
@@ -34,14 +35,9 @@ export default function Header() {
               <Link to="/home">WeShare</Link>
             </h1>
           </div>
-          <div className="sectionB">
-            <button className="searchIcon">
-              <i className="fas fa-search"></i>
-            </button>
-            <form>
-              <input type="text" placeholder="Search friends" />
-            </form>
-          </div>
+
+          <Search />
+        
           <div className="sectionC">
             <div className="groupOne">
               <button className="userIcon">
@@ -83,14 +79,7 @@ export default function Header() {
               <Link to="/home">WeShare</Link>
             </h1>
           </div>
-          <div className="sectionB">
-            <button className="searchIcon">
-              <i className="fas fa-search"></i>
-            </button>
-            <form>
-              <input type="text" placeholder="Search friends" />
-            </form>
-          </div>
+          <Search />
           <div className="sectionC">
             <div className="groupOne">
               <button className="userIcon">

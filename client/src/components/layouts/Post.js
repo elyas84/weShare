@@ -2,29 +2,50 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Post.css";
 import { useSelector, useDispatch } from "react-redux";
+import { postDelete } from "../../redux/actions/postAction";
 export default function Post({ post }) {
- 
+  // console.log(post);
   const loginOfUser = useSelector((state) => state.loginOfUser);
   const { userInfo } = loginOfUser;
   const [clicked, setClicked] = useState(false);
 
+  const dispatch = useDispatch();
+
   const openComment = () => {
     setClicked(!clicked);
   };
- console.log(userInfo);
+
+  const removePost = () => {
+    if (window.confirm("Are you sure ?")) {
+      dispatch(postDelete(post._id));
+    }
+  };
   return (
     <div className="post">
       <div className="post_header">
         <div className="avatar">
           <Link to="/profile">
-          
-           
-               <img src={"/api/uploads/image?filename=" + userInfo.profilePicture} alt="" />
-          
-         
+            <img
+              src={
+                "/api/uploads/image?filename=" + post.createdBy.profilePicture
+              }
+              alt=""
+            />
           </Link>
         </div>
-        <p>{ post && post.createdBy.username}</p>
+        <p>{post && post.createdBy.username}</p>
+        {userInfo._id === post.createdBy._id ? (
+          <div className="deleteIcon">
+            <button
+              className="delete"
+              onClick={() => {
+                removePost();
+              }}
+            >
+              <i className="fas fa-times"></i>
+            </button>
+          </div>
+        ) : null}
       </div>
 
       {post && post.imagePost ? (
@@ -46,7 +67,10 @@ export default function Post({ post }) {
             <button className="postDate">
               <i className="far fa-clock"></i>
             </button>
-            <span className="time">2021/07/21 - 12:43</span>
+            <span className="time">
+              {post.createdAt.substring(0, 10)}
+              &nbsp;{post.createdAt.substring(11, 16)}
+            </span>
           </div>
           <div className={clicked ? "commentArea active" : "commentArea"}>
             <form>
@@ -64,7 +88,13 @@ export default function Post({ post }) {
           <div className="commentSection">
             <div className="post_header">
               <div className="avatar">
-              <img src={"/api/uploads/image?filename=" +userInfo.profilePicture} alt="" />
+                <img
+                  src={
+                    "/api/uploads/image?filename=" +
+                    post.createdBy.profilePicture
+                  }
+                  alt=""
+                />
               </div>
               <p>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe,
@@ -106,7 +136,10 @@ export default function Post({ post }) {
           <div className="commentSection">
             <div className="post_header">
               <div className="avatar">
-              <img src={"/api/uploads/image?filename=" +userInfo.profilePicture} alt="" />
+                <img
+                  src={"/api/uploads/image?filename=" + userInfo.profilePicture}
+                  alt=""
+                />
               </div>
               <p>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe,
