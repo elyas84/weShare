@@ -1,25 +1,30 @@
 import React from "react";
-import '../styles/Friend.css'
-
-export default function Friend({friend}) {
-  console.log(friend)
-
+import "../styles/Friend.css";
+import {Link} from 'react-router-dom'
+export default function Friend({ fr }) {
+  console.log(fr);
 
   return (
     <div className="friendCard">
-      <div className="friendCard_header">
-         
-        <img
-        
-        />
+      <Link to={"/user-profile/" + fr._id}>
+       <div className="friendCard_header">
+        {fr && fr.profilePicture && (
+          <img
+            src={"/api/uploads/image?filename=" + fr.profilePicture}
+            alt=""
+          />
+        )}
+
         <div className="nameOfFriend">
-            <h3>dd</h3>
+          {fr && fr.username && <p>{fr.username}</p>}
         </div>
       </div>
-      <div className="friendCard_body">
+      </Link>
+     
+      {/* <div className="friendCard_body">
         <button className="follow">Follow</button>
         <button className="unfollow">Unfollow</button>
-      </div>
+      </div> */}
     </div>
   );
 }

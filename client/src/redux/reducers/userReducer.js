@@ -20,6 +20,12 @@ import {
   USER_PROFILE_UPDATE_SUCCESS,
   USER_PROFILE_UPDATE_FAIL,
   USER_PROFILE_UPDATE_REST,
+  USER_FOLLOWING_REQUEST,
+  USER_FOLLOWING_SUCCESS,
+  USER_FOLLOWING_FAIL,
+  USER_FOLLWERS_REQUEST,
+  USER_FOLLWERS_SUCCESS,
+  USER_FOLLWERS_FAIL,
 } from "../constence/userConst";
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -131,14 +137,14 @@ export const userListReducer = (state = { users: [] }, action) => {
   switch (action.type) {
     case USER_LIST_REQUEST:
       return {
-        users:[],
+        users: [],
         loading: true,
       };
 
     case USER_LIST_SUCCESS:
       return {
         loading: false,
-        users: action.payload.data,
+        users: action.payload,
       };
 
     case USER_LIST_FAIL:
@@ -169,6 +175,56 @@ export const userDeleteReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    default:
+      return state;
+  }
+};
+
+export const userFollowingsReducer = (state = { followings: [] }, action) => {
+  switch (action.type) {
+    case USER_FOLLOWING_REQUEST:
+      return {
+        followings: [],
+        loading: true,
+      };
+
+    case USER_FOLLOWING_SUCCESS:
+      return {
+        loading: false,
+        followings: action.payload,
+      };
+
+    case USER_FOLLOWING_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const userFollowersReducer = (state = { followers: [] }, action) => {
+  switch (action.type) {
+    case USER_FOLLWERS_REQUEST:
+      return {
+        followers: [],
+        loading: true,
+      };
+
+    case USER_FOLLWERS_SUCCESS:
+      return {
+        loading: false,
+        followers: action.payload,
+      };
+
+    case USER_FOLLWERS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
     default:
       return state;
   }

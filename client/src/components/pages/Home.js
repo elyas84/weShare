@@ -6,7 +6,7 @@ import "../styles/Home.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getPosts } from "../../redux/actions/postAction";
-import { getUserDetails } from "../../redux/actions/userAction";
+import { getFollowings, getFollowers } from "../../redux/actions/userAction";
 import Loader from "../layouts/Loader";
 export default function Home() {
   const history = useHistory();
@@ -23,10 +23,19 @@ export default function Home() {
   const postOfDelete = useSelector((state) => state.postOfDelete);
   const { deleteSuccess } = postOfDelete;
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { loading: userDetailLoading, user, error: userDetailError } = userDetails;
+  const userFollowings = useSelector((state) => state.userFollowings);
+  const {
+    followings,
+    loading: followingsLoading,
+    error: followingsError,
+  } = userFollowings;
 
-
+  const userFollowes = useSelector((state) => state.userFollowes);
+  const {
+    followers,
+    loading: follewerLoading,
+    error: follewerError,
+  } = userFollowes;
 
   useEffect(() => {
     if (!userInfo.username) {
@@ -34,8 +43,8 @@ export default function Home() {
     }
 
     dispatch(getPosts());
-    dispatch(getUserDetails("profile"))
-
+    dispatch(getFollowings(userInfo._id));
+    dispatch(getFollowers(userInfo._id));
   }, [userInfo, history, dispatch, postSuccess, deleteSuccess]);
 
   return (
@@ -45,9 +54,7 @@ export default function Home() {
           <PostForm />
         </div>
         <div className="posts">
-          {loading && (
-           <Loader />
-          )}
+          {loading && <Loader />}
           {error && (
             <p
               style={{
@@ -72,10 +79,10 @@ export default function Home() {
       </div>
 
       <div className="friends">
-      {userDetailLoading && (
-           <Loader />
-          )}
-          {userDetailError && (
+        <div className="followingContainer">
+          <h3>{userInfo.username} following</h3>
+          {followingsLoading && <Loader />}
+          {followingsError && (
             <p
               style={{
                 backgroundColor: "#FE8F8F",
@@ -83,9 +90,45 @@ export default function Home() {
                 padding: ".5rem",
               }}
             >
-              {userDetailError}
+              {followingsError}
             </p>
           )}
+          <div className="row">
+            {followings && followings.length
+              ? followings.map((fr, id) => (
+                  <div className="col" key={id}>
+                    <Friend fr={fr} />
+                  </div>
+                ))
+              : null}
+          </div>
+        </div>
+        <div className="friends">
+          <div className="followingContainer">
+            <h3>{userInfo.username}' followers</h3>
+            {follewerLoading && <Loader />}
+            {follewerError && (
+              <p
+                style={{
+                  backgroundColor: "#FE8F8F",
+                  color: "#fff",
+                  padding: ".5rem",
+                }}
+              >
+                {follewerError}
+              </p>
+            )}
+            <div className="row">
+              {followers && followers.length
+                ? followers.map((fr, id) => (
+                    <div className="col" key={id}>
+                      <Friend fr={fr} />
+                    </div>
+                  ))
+                : null}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

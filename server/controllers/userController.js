@@ -240,11 +240,11 @@ exports.toFollow = async (req, res) => {
   if (req.user.id !== req.params.id) {
     try {
       const userToFollow = await User.findById(req.params.id);
-      const currentUser = await User.findById(req.user.id);
+      const currentUser = await User.findById(req.user._id);
 
-      if (!userToFollow.followers.includes(req.user.id)) {
-        await userToFollow.updateOne({ $push: { followers: req.user.id } });
-        await currentUser.updateOne({ $push: { followings: req.user.id } });
+      if (!userToFollow.followers.includes(req.user._id)) {
+        await userToFollow.updateOne({ $push: { followers: req.user._id } });
+        await currentUser.updateOne({ $push: { followings: req.params.id } });
         res.status(200).json({
           message: "User has been followed.",
         });
@@ -260,8 +260,6 @@ exports.toFollow = async (req, res) => {
       });
     }
   } else {
-    // console.log(req.user.id);
-
     return res.status(400).json({
       message: "You can't follow yourself.",
     });
@@ -279,8 +277,8 @@ exports.toUnFollow = async (req, res) => {
       const currentUser = await User.findById(req.user.id);
 
       if (userToFollow.followers.includes(req.user.id)) {
-        await userToFollow.updateOne({ $pull: { followers: req.user.id } });
-        await currentUser.updateOne({ $pull: { followings: req.user.id } });
+        await userToFollow.updateOne({ $pull: { followers: req.user._id } });
+        await currentUser.updateOne({ $pull: { followings: req.params.id } });
         res.status(200).json({
           message: "User has been unfollowed.",
         });
@@ -296,8 +294,6 @@ exports.toUnFollow = async (req, res) => {
       });
     }
   } else {
-    // console.log(req.user.id);
-
     return res.status(400).json({
       message: "You can't unfollow yourself.",
     });
@@ -308,31 +304,66 @@ exports.toUnFollow = async (req, res) => {
 // @route /api/users/friends
 // @access private
 
-exports.getFriends = async (req, res) => {
-
+exports.getFollowingFriends = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id)
+    const user = await User.findById(req.user._id);
     const friends = await Promise.all(
-      user.followings.map((friendId)=>{
-        return User.findById(friendId)
+      user.followings.map((friendId) => {
+        return User.findById(friendId);
       })
-    )
+    );
 
-    if(friends && friends.length===0) {
+    if (friends && friends.length === 0) {
       return res.status(404).json({
-        message: "There are no friend found"
-      })
+        message: "There are no friend found",
+      });
     }
 
-    let listOfFriends = []
+    let listOfFriends = [];
 
-    friends.map((friend)=>{
-      const {_id, username, profilePicture} = friend
+    friends.map((friend) => {
+      const { _id, username, profilePicture } = friend;
 
-      listOfFriends.push({_id, username, profilePicture}) 
-    })
+      listOfFriends.push({ _id, username, profilePicture });
+    });
 
-    res.status(200).json(listOfFriends)
+    res.status(200).json(listOfFriends);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      message: error,
+    });
+  }
+};
+
+// @desc GET friends
+// @route /api/users/friends
+// @access private
+
+exports.getFollwedFriends = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const friends = await Promise.all(
+      user.followers.map((friendId) => {
+        return User.findById(friendId);
+      })
+    );
+
+    if (friends && friends.length === 0) {
+      return res.status(404).json({
+        message: "There are no friend found",
+      });
+    }
+
+    let listOfFriends = [];
+
+    friends.map((friend) => {
+      const { _id, username, profilePicture } = friend;
+
+      listOfFriends.push({ _id, username, profilePicture });
+    });
+
+    res.status(200).json(listOfFriends);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({

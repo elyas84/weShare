@@ -18,6 +18,13 @@ import {
   USER_PROFILE_UPDATE_REQUEST,
   USER_PROFILE_UPDATE_SUCCESS,
   USER_PROFILE_UPDATE_FAIL,
+  USER_FOLLOWING_REQUEST,
+  USER_FOLLOWING_SUCCESS,
+  USER_FOLLOWING_FAIL,
+
+  USER_FOLLWERS_REQUEST,
+  USER_FOLLWERS_SUCCESS,
+  USER_FOLLWERS_FAIL,
 } from "../constence/userConst";
 
 import axios from "axios";
@@ -232,6 +239,79 @@ export const deleteUser = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_DELETE_FAIL,
+
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getFollowings = (id) => async (dispatch, getState) => {
+  // in this case ID can be a profile
+  try {
+    dispatch({
+      type: USER_FOLLOWING_REQUEST,
+    });
+
+    const {
+      loginOfUser: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + userInfo.token,
+      },
+    };
+    const response = await axios.get("/api/users/followingsfriends/" + id, config);
+    // console.log(response.data)
+
+    dispatch({
+      type: USER_FOLLOWING_SUCCESS,
+
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_FOLLOWING_FAIL,
+
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+export const getFollowers = (id) => async (dispatch, getState) => {
+  // in this case ID can be a profile
+  try {
+    dispatch({
+      type: USER_FOLLWERS_REQUEST,
+    });
+
+    const {
+      loginOfUser: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + userInfo.token,
+      },
+    };
+    const response = await axios.get("/api/users/followerfriends/" + id, config);
+    console.log(response.data)
+
+    dispatch({
+      type: USER_FOLLWERS_SUCCESS,
+
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_FOLLWERS_FAIL,
 
       payload:
         error.response && error.response.data.message

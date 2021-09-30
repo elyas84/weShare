@@ -9,3 +9,12 @@
   flex: 1;
   margin-right: 0.5rem;
 }
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-gap: 0.5rem;
+}
+.followingContainer > h3 {
+  padding: 0.5rem 0;
+}

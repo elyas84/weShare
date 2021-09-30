@@ -9,6 +9,8 @@ import {
   userUpdateProfileReducer,
   userListReducer,
   userDeleteReducer,
+  userFollowingsReducer,
+  userFollowersReducer
 } from "./redux/reducers/userReducer";
 
 import {
@@ -27,6 +29,8 @@ const reducer = combineReducers({
   userProfileUpdate: userUpdateProfileReducer,
   deleteUser: userDeleteReducer,
   userList: userListReducer,
+  userFollowings:userFollowingsReducer,
+  userFollowes:userFollowersReducer,
   postCreate: newPostReducer,
   postByUser : postListOUserReducer,
   postList: postListReducer,

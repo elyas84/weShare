@@ -31,7 +31,8 @@ export default function Post({ post }) {
     <div className="post">
       <div className="post_header">
         <div className="avatar">
-          {userInfo._id === post.createdBy._id ? (
+          {
+          userInfo._id === post.createdBy._id ? (
             <Link to="/profile">
               <img
                 src={
