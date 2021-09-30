@@ -41,17 +41,7 @@ export default function Login({ openModal }) {
       )}
       <form onSubmit={submitHandler}>
         <h2>Login</h2>
-        {msg && (
-          <p
-            style={{
-              backgroundColor: "green",
-              color: "#fff",
-              padding: ".5rem",
-            }}
-          >
-            Login Succsess!
-          </p>
-        )}
+    
         <div className="loginInput">
           <label>
             <button>
@@ -82,9 +72,23 @@ export default function Login({ openModal }) {
             }}
           />
         </div>
-        <div className="loginInput btn">
+        {msg ? (
+          <p
+            style={{
+              backgroundColor: "green",
+              color: "#fff",
+              padding: ".5rem",
+            }}
+          >
+            Login Succsess!
+          </p>
+        ): (
+  <div className="loginInput btn">
           <button className="loginBtn">Login</button>
         </div>
+
+        )}
+      
       </form>
       <button className="newAccount" onClick={openModal}>
         <i className="fas fa-user-plus"></i>

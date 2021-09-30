@@ -25,4 +25,7 @@ router.route("/register").post(userInputCheck, userController.register);
 router.route("/:id/follow").put(private, userController.toFollow);
 // UNFOLLOW
 router.route("/:id/unfollow").put(private, userController.toUnFollow);
+
+// get friendList
+router.route("/friends/list").get(private, userController.getFriends)
 module.exports = router;

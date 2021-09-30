@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Link , useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../styles/Post.css";
 import { useSelector, useDispatch } from "react-redux";
 import { postDelete } from "../../redux/actions/postAction";
 export default function Post({ post }) {
-  const history = useHistory()
+  const history = useHistory();
   const dispatch = useDispatch();
-  console.log(post.createdAt);
+
   const loginOfUser = useSelector((state) => state.loginOfUser);
   const { userInfo } = loginOfUser;
   const [clicked, setClicked] = useState(false);
 
-
-useEffect(()=>{
- if(!userInfo){
-   history.push("/")
- } 
-}, [userInfo])
+  useEffect(() => {
+    if (!userInfo) {
+      history.push("/");
+    }
+  }, [userInfo]);
 
   const openComment = () => {
     setClicked(!clicked);
@@ -53,7 +52,7 @@ useEffect(()=>{
           )}
         </div>
         <p>{post && post.createdBy.username}</p>
-        {userInfo._id === post.createdBy._id ? (
+        {userInfo._id === post.createdBy._id || userInfo.isAdmin ? (
           <div className="deleteIcon">
             <button
               className="delete"
@@ -87,13 +86,11 @@ useEffect(()=>{
               <i className="far fa-clock"></i>
             </button>
             {post && post.createdAt && (
-
-               <span className="time">
-              {post.createdAt.substring(0, 10)}
-              &nbsp;{post.createdAt.substring(11, 16)}
-            </span>
+              <span className="time">
+                {post.createdAt.substring(0, 10)}
+                &nbsp;{post.createdAt.substring(11, 16)}
+              </span>
             )}
-           
           </div>
           <div className={clicked ? "commentArea active" : "commentArea"}>
             <form>

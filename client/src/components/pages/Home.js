@@ -6,6 +6,8 @@ import "../styles/Home.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getPosts } from "../../redux/actions/postAction";
+import { getUserDetails } from "../../redux/actions/userAction";
+import Loader from "../layouts/Loader";
 export default function Home() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -17,10 +19,14 @@ export default function Home() {
 
   const postList = useSelector((state) => state.postList);
   const { loading, posts, error } = postList;
-  
 
   const postOfDelete = useSelector((state) => state.postOfDelete);
   const { deleteSuccess } = postOfDelete;
+
+  const userDetails = useSelector((state) => state.userDetails);
+  const { loading: userDetailLoading, user, error: userDetailError } = userDetails;
+
+
 
   useEffect(() => {
     if (!userInfo.username) {
@@ -28,6 +34,8 @@ export default function Home() {
     }
 
     dispatch(getPosts());
+    dispatch(getUserDetails("profile"))
+
   }, [userInfo, history, dispatch, postSuccess, deleteSuccess]);
 
   return (
@@ -38,12 +46,7 @@ export default function Home() {
         </div>
         <div className="posts">
           {loading && (
-            <img
-              src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif "
-              alt="spiner"
-              width="40px"
-              height="40px"
-            ></img>
+           <Loader />
           )}
           {error && (
             <p
@@ -69,13 +72,20 @@ export default function Home() {
       </div>
 
       <div className="friends">
-        <ul>
-          <li>
-            <Friend />
-            <Friend />
-            <Friend />
-          </li>
-        </ul>
+      {userDetailLoading && (
+           <Loader />
+          )}
+          {userDetailError && (
+            <p
+              style={{
+                backgroundColor: "#FE8F8F",
+                color: "#fff",
+                padding: ".5rem",
+              }}
+            >
+              {userDetailError}
+            </p>
+          )}
       </div>
     </div>
   );

@@ -37,7 +37,7 @@ export default function Header() {
           </div>
 
           <Search />
-        
+
           <div className="sectionC">
             <div className="groupOne">
               <button className="userIcon">
@@ -52,7 +52,12 @@ export default function Header() {
             <div className="groupTwo">
               <div className="profilePicture" onClick={showMenu}>
                 <Link to="/profile">
-                <img src={"/api/uploads/image?filename=" +userInfo.profilePicture} alt="" />
+                  <img
+                    src={
+                      "/api/uploads/image?filename=" + userInfo.profilePicture
+                    }
+                    alt=""
+                  />
                 </Link>
 
                 <span>{userInfo.username}</span>
@@ -94,7 +99,12 @@ export default function Header() {
             <div className="groupTwo">
               <div className="profilePicture" onClick={showMenu}>
                 <Link to="/profile">
-                <img src={"/api/uploads/image?filename=" +userInfo.profilePicture} alt="" />
+                  <img
+                    src={
+                      "/api/uploads/image?filename=" + userInfo.profilePicture
+                    }
+                    alt=""
+                  />
                 </Link>
 
                 <span>{userInfo.username}</span>

@@ -9,13 +9,12 @@ export default function Search() {
   const userList = useSelector((state) => state.userList);
   const { loading, users, error } = userList;
 
-  console.log(users);
 
   // search for a products
 
-  const searchUser =   users.filter((byName) => {
-      return byName.username.toLowerCase().includes(key.toLowerCase());
-    });
+  // const searchUser =   users.filter((byName) => {
+  //     return byName.username.toLowerCase().includes(key.toLowerCase());
+  //   });
  
 
   return (

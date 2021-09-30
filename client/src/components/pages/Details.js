@@ -32,7 +32,7 @@ export default function Details({ match }) {
 
     dispatch(getUserDetails(userID));
     dispatch(getPostsByUser(userID));
-  }, [dispatch, userID, history]);
+  }, [dispatch, userID, history,userInfo]);
 
   return (
     <div className="details">

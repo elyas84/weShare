@@ -191,7 +191,7 @@ export const getUsers = () => async (dispatch, getState) => {
         Authorization: "Bearer " + userInfo.token,
       },
     };
-    const res = await axios.get("/api/users/", config);
+    const res = await axios.get("/api/users", config);
 
     dispatch({
       type: USER_LIST_SUCCESS,
