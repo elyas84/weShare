@@ -15,6 +15,9 @@ import {
   POST_DELETE_REQUEST,
   POST_DELETE_SUCCESS,
   POST_DELETE_FAIL,
+  POST_LIST_BY_USER_REQUEST,
+  POST_LIST_BY_USER_SUCCESS,
+  POST_LIST_BY_USER_FAIL
 } from "../constence/postconst";
 
 export const newPostReducer = (state = { post: {} }, action) => {
@@ -42,6 +45,30 @@ export const newPostReducer = (state = { post: {} }, action) => {
       return state;
   }
 };
+
+export const postListOUserReducer = (state = { posts: [] }, action) => {
+  switch (action.type) {
+    case POST_LIST_BY_USER_REQUEST:
+      return {
+        loading: true,
+        posts: [],
+      };
+
+    case POST_LIST_BY_USER_SUCCESS:
+      return {
+        loading: false,
+        posts: action.payload,
+      };
+    case POST_LIST_BY_USER_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
 
 export const postListReducer = (state = { posts: [] }, action) => {
   switch (action.type) {

@@ -15,6 +15,9 @@ import {
   POST_DELETE_REQUEST,
   POST_DELETE_SUCCESS,
   POST_DELETE_FAIL,
+  POST_LIST_BY_USER_REQUEST,
+  POST_LIST_BY_USER_SUCCESS,
+  POST_LIST_BY_USER_FAIL,
 } from "../constence/postconst";
 
 import axios from "axios";
@@ -42,6 +45,39 @@ export const creatPost = (post) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: POST_CREATE_FAIL,
+
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getPostsByUser = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: POST_LIST_BY_USER_REQUEST,
+    });
+
+    const {
+      loginOfUser: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        Authorization: "Bearer " + userInfo.token,
+      },
+    };
+
+    const res = await axios.get("/api/posts/createdBy/" + id, config);
+
+    dispatch({
+      type: POST_LIST_BY_USER_SUCCESS,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: POST_LIST_BY_USER_FAIL,
 
       payload:
         error.response && error.response.data.message
@@ -99,7 +135,7 @@ export const getMyPostList = () => async (dispatch, getState) => {
       },
     };
 
-    const res = await axios.get("/api/posts/userposts", config);
+    const res = await axios.get("/api/posts/myposts", config);
 
     dispatch({
       type: POST_MY_SUCCESS,

@@ -1,15 +1,22 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link , useHistory} from "react-router-dom";
 import "../styles/Post.css";
 import { useSelector, useDispatch } from "react-redux";
 import { postDelete } from "../../redux/actions/postAction";
 export default function Post({ post }) {
-  // console.log(post);
+  const history = useHistory()
+  const dispatch = useDispatch();
+  console.log(post.createdAt);
   const loginOfUser = useSelector((state) => state.loginOfUser);
   const { userInfo } = loginOfUser;
   const [clicked, setClicked] = useState(false);
 
-  const dispatch = useDispatch();
+
+useEffect(()=>{
+ if(!userInfo){
+   history.push("/")
+ } 
+}, [userInfo])
 
   const openComment = () => {
     setClicked(!clicked);
@@ -20,18 +27,30 @@ export default function Post({ post }) {
       dispatch(postDelete(post._id));
     }
   };
+
   return (
     <div className="post">
       <div className="post_header">
         <div className="avatar">
-          <Link to="/profile">
-            <img
-              src={
-                "/api/uploads/image?filename=" + post.createdBy.profilePicture
-              }
-              alt=""
-            />
-          </Link>
+          {userInfo._id === post.createdBy._id ? (
+            <Link to="/profile">
+              <img
+                src={
+                  "/api/uploads/image?filename=" + post.createdBy.profilePicture
+                }
+                alt=""
+              />
+            </Link>
+          ) : (
+            <Link to={"/user-profile/" + post.createdBy._id}>
+              <img
+                src={
+                  "/api/uploads/image?filename=" + post.createdBy.profilePicture
+                }
+                alt=""
+              />
+            </Link>
+          )}
         </div>
         <p>{post && post.createdBy.username}</p>
         {userInfo._id === post.createdBy._id ? (
@@ -67,10 +86,14 @@ export default function Post({ post }) {
             <button className="postDate">
               <i className="far fa-clock"></i>
             </button>
-            <span className="time">
+            {post && post.createdAt && (
+
+               <span className="time">
               {post.createdAt.substring(0, 10)}
               &nbsp;{post.createdAt.substring(11, 16)}
             </span>
+            )}
+           
           </div>
           <div className={clicked ? "commentArea active" : "commentArea"}>
             <form>

@@ -3,13 +3,9 @@
   max-width: 900px;
   margin: 0 auto;
   padding: 1rem;
+  min-height: 100vh;
 }
 .feed {
   flex: 1;
   margin-right: 0.5rem;
 }
-.postFeed {
-}
-/* .posts::-webkit-scrollbar {
-    display: none; 
-} */

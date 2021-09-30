@@ -7,7 +7,10 @@ const User = require("../models/userModel");
 
 exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate("createdBy", "username profilePicture _id");
+    const posts = await Post.find().populate(
+      "createdBy",
+      "username profilePicture _id"
+    );
     if (posts && posts.length === 0) {
       return res.status(404).json({
         message: "There are no posts found",
@@ -33,6 +36,30 @@ exports.getPost = async (req, res) => {
       });
     }
     res.status(200).json(post);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error.message);
+  }
+};
+
+// @desc GET postBYUSer
+// @route /api/posts/single/:id
+// @access private
+
+exports.getPostByUser = async (req, res) => {
+  try {
+    const posts = await Post.find({ createdBy: req.params.id }).populate(
+      "createdBy",
+      "username _id profilePicture "
+    );
+
+    if (posts && posts.length === 0) {
+      return res.status(404).json({
+        message: "There are no posts found",
+      });
+    } else {
+      return res.status(200).json(posts);
+    }
   } catch (error) {
     console.log(error);
     return res.status(500).json(error.message);
@@ -92,11 +119,12 @@ exports.editPost = async (req, res) => {
   }
 };
 
-exports.userPost = async (req, res) => {
+exports.myPosts = async (req, res) => {
   try {
-    const myposts = await Post.find({ createdBy: req.user._id })
-      .populate("createdBy", "username profilePicture")
-      .sort("created");
+    const myposts = await Post.find({ createdBy: req.user._id }).populate(
+      "createdBy",
+      "username profilePicture"
+    );
     if (myposts && myposts.length === 0) {
       return res.status(404).json({ message: "There is no post" });
     }

@@ -4,9 +4,10 @@ import Post from "../layouts/Post";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUserDetails, profileUpdate } from "../../redux/actions/userAction";
-import { getMyPostList} from "../../redux/actions/postAction";
+import { getMyPostList } from "../../redux/actions/postAction";
 import { USER_PROFILE_UPDATE_REST } from "../../redux/constence/userConst";
 import axios from "axios";
+import Loader from "../layouts/Loader";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -17,7 +18,6 @@ export default function Profile() {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
-
 
   const userProfileUpdate = useSelector((state) => state.userProfileUpdate);
   const {
@@ -33,7 +33,6 @@ export default function Profile() {
     error: myPostListError,
   } = postMyList;
 
-
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -44,15 +43,15 @@ export default function Profile() {
     if (!userInfo.username) {
       history.push("/");
     } else {
-      if (!user || !user.username || updateSuccess) {
+      if ( updateSuccess) {
         dispatch({ type: USER_PROFILE_UPDATE_REST });
 
         dispatch(getUserDetails("profile"));
         setLoginSucc(false);
-        dispatch(getMyPostList());
       } else {
-        setUsername(user.username);
-        setEmail(user.email);
+        setUsername(userInfo.username);
+        setEmail(userInfo.email);
+        dispatch(getMyPostList());
       }
     }
   }, [dispatch, userInfo, user, updateSuccess, history, loginSucc]);
@@ -77,7 +76,7 @@ export default function Profile() {
         },
       };
       const res = await axios.post("/api/uploads/", formData, config);
-      console.log("resImg: ", res.data);
+      // console.log("resImg: ", res.data);
       setImage(res.data);
       setUploadingProfile(false);
     } catch (error) {
@@ -168,14 +167,7 @@ export default function Profile() {
           </div>
         </div>
         <div className="posts">
-          {myPostListLoading && (
-            <img
-              src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif "
-              alt="spiner"
-              width="40px"
-              height="40px"
-            ></img>
-          )}
+          {myPostListLoading && <Loader />}
           {myPostListError && (
             <p
               style={{
@@ -198,14 +190,7 @@ export default function Profile() {
       </div>
       <div className="right">
         <h4>Update Profile</h4>
-        {updateLodaing && (
-          <img
-            src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif "
-            alt="spiner"
-            width="40px"
-            height="40px"
-          ></img>
-        )}
+        {updateLodaing && <Loader />}
         {updateError && (
           <p
             style={{

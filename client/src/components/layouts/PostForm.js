@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { creatPost } from "../../redux/actions/postAction";
 import { POST_CREATE_REST } from "../../redux/constence/postconst";
 import axios from "axios";
+import Loader from "./Loader";
 export default function PostForm() {
   const dispatch = useDispatch();
   const loginUser = useSelector((state) => state.loginOfUser);
@@ -72,12 +73,7 @@ export default function PostForm() {
         </div>
         <div className="userInputBox">
         {loading && (
-        <img
-          src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif "
-          alt="spiner"
-          width="40px"
-          height="40px"
-        ></img>
+       <Loader />
       )}
       {error && (
         <p style={{ backgroundColor: "red", color: "#fff", padding: ".5rem" }}>

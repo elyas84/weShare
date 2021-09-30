@@ -14,7 +14,7 @@ router
 // DELETE ACCOUNT
 router
   .route("/:id")
-  .get(private, admin, userController.getUser)
+  .get(private, userController.getUser)
   .delete(private, admin, userController.deleteAccount);
 // LOGIN
 router.route("/login").post(userController.login);

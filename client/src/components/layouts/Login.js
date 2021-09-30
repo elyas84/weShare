@@ -3,8 +3,9 @@ import "../styles/Login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/actions/userAction";
 import { useHistory } from "react-router-dom";
+import Loader from "./Loader";
 
-export default function Login() {
+export default function Login({ openModal }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const loginUser = useSelector((state) => state.loginOfUser);
@@ -32,14 +33,7 @@ export default function Login() {
 
   return (
     <div className="login">
-      {loading && (
-        <img
-          src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif "
-          alt="spiner"
-          width="40px"
-          height="40px"
-        ></img>
-      )}
+      {loading && <Loader />}
       {error && (
         <p style={{ backgroundColor: "red", color: "#fff", padding: ".5rem" }}>
           {error}
@@ -92,6 +86,9 @@ export default function Login() {
           <button className="loginBtn">Login</button>
         </div>
       </form>
+      <button className="newAccount" onClick={openModal}>
+        <i className="fas fa-user-plus"></i>
+      </button>
     </div>
   );
 }

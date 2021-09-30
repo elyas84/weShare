@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "./Loader";
 // import { getPosts } from "../../redux/actions/postAction";
 export default function Search() {
   // const dispatch = useDispatch();
@@ -23,12 +24,7 @@ export default function Search() {
         <i className="fas fa-search"></i>
       </button>
       {loading && (
-        <img
-          src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif "
-          alt="spiner"
-          width="40px"
-          height="40px"
-        ></img>
+       <Loader />
       )}
       {error && (
         <p

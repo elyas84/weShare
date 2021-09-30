@@ -1,51 +1,62 @@
 .login {
-    border: 1px solid lightgray;
-    max-width: 500px;
-    padding: 1rem;
-    margin: 0 auto;
-    background-color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
+  border: 1px solid lightgray;
+  max-width: 500px;
+  padding: 1rem;
+  margin: 0 auto;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+
 }
-.login  h2 {
-    margin-bottom: 3rem;
+.login h2 {
+  margin-bottom: 3rem;
 }
 .login > form {
-    width: 100%;
+  width: 100%;
 }
 .loginInput {
-    display: flex;
-    border: 1px solid lightgray;
-    padding: .5rem;
-    margin: 1rem 0;
-    align-items: center;
+  display: flex;
+  border: 1px solid lightgray;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  align-items: center;
 }
 .loginInput input {
-    width: 100%;
-    border: none;
-    outline: none;
-    padding: .5rem;
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 0.5rem;
 }
-.loginInput  button {
-    background: transparent;
-    border: none;
-    margin-right: 1rem;
+.loginInput button {
+  background: transparent;
+  border: none;
+  margin-right: 1rem;
 }
 .btn {
-    background-color: rgb(59, 151, 187)
-    
+  background-color: rgb(59, 151, 187);
 }
 .btn .loginBtn {
-  
-    width: 100%;
-    font-size: 1.4rem;
-    cursor: pointer;
-    color: #fff;
+  width: 100%;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #fff;
 }
 .btn:hover {
-    background-color: rgb(52, 134, 167)
-    
+  background-color: rgb(52, 134, 167);
+}
+.newAccount {
+  border: none;
+  background: transparent;
+  padding: 0.5rem;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+.newAccount i {
+  color: lightgray;
+}
+.newAccount:hover i {
+  color: #000;
 }

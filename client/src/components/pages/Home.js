@@ -17,7 +17,7 @@ export default function Home() {
 
   const postList = useSelector((state) => state.postList);
   const { loading, posts, error } = postList;
-  console.log("poslist: ", posts);
+  
 
   const postOfDelete = useSelector((state) => state.postOfDelete);
   const { deleteSuccess } = postOfDelete;

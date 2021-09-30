@@ -54,7 +54,7 @@
   visibility: hidden;
 }
 .fileUpload > label > .fa-image {
-  font-size: 3rem;
+  font-size: 2rem;
   cursor: pointer;
 }
 .fileUpload > label:hover {

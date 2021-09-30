@@ -3,7 +3,8 @@ import "../styles/Register.css";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../redux/actions/userAction";
 import { USER_REG_REST } from "../../redux/constence/userConst";
-export default function Register() {
+import Loader from "./Loader";
+export default function Register({ openModal }) {
   const dispatch = useDispatch();
   const registerUser = useSelector((state) => state.registerOfUser);
   const { loading, userInfo, registerSuccess, error } = registerUser;
@@ -37,14 +38,7 @@ export default function Register() {
 
   return (
     <div className="register">
-      {loading && (
-        <img
-          src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif"
-          alt="spiner"
-          width="40px"
-          height="40px"
-        ></img>
-      )}
+      {loading && <Loader />}
       {error && (
         <p style={{ backgroundColor: "red", color: "#fff", padding: ".5rem" }}>
           {error}
@@ -128,6 +122,9 @@ export default function Register() {
           <button className="registerBtn">Register</button>
         </div>
       </form>
+      <button className="newAccount" onClick={openModal}>
+        <i className="fas fa-user-check"></i>
+      </button>
     </div>
   );
 }
