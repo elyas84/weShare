@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { getUserDetails ,getFollowings, getFollowers } from "../../redux/actions/userAction";
+import {
+  getUserDetails,
+  getUserFriendsFollowings,
+  getUserFriendsFollowers,
+  toFollowSomeone,
+  unFollowSomeone
+} from "../../redux/actions/userAction";
 import { getPostsByUser } from "../../redux/actions/postAction";
 import Friend from "../layouts/Friend";
 import Post from "../layouts/Post";
@@ -17,7 +23,7 @@ export default function Details({ match }) {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user, loading, error } = userDetails;
-  console.log("user ",userID)
+  console.log("user ", user);
 
   const postByUser = useSelector((state) => state.postByUser);
   const {
@@ -33,26 +39,51 @@ export default function Details({ match }) {
 
     dispatch(getUserDetails(userID));
     dispatch(getPostsByUser(userID));
-    dispatch(getFollowings(userID));
-    dispatch(getFollowers(userID));
-  }, [dispatch, userID, history,userInfo]);
+    dispatch(getUserFriendsFollowings(userID));
+    dispatch(getUserFriendsFollowers(userID));
+  }, [dispatch, userID, history, userInfo]);
 
-
-  const userFollowings = useSelector((state) => state.userFollowings);
+  const userFriendsFollowings = useSelector(
+    (state) => state.userFriendsFollowings
+  );
   const {
     followings,
     loading: followingsLoading,
     error: followingsError,
-  } = userFollowings;
+  } = userFriendsFollowings;
 
-  console.log("followings :",followings)
-
-  const userFollowes = useSelector((state) => state.userFollowes);
+  const userFriendsFollowers = useSelector(
+    (state) => state.userFriendsFollowers
+  );
   const {
     followers,
     loading: follewerLoading,
     error: follewerError,
-  } = userFollowes;
+  } = userFriendsFollowers;
+
+
+  /**unfollow or follow */
+
+  const userUnfollow = useSelector(
+    (state) => state.userUnfollow
+  );
+  const {
+    followings:unfollowFollowings,
+    loading: unfollewingsLoading,
+    error: unfollowingsError,
+  } 
+ = userUnfollow
+
+  const userFollow = useSelector(
+    (state) => state.userFollow
+  );
+  const {
+    followings:tofollowFollowings,
+    loading: tofollewingsLoading,
+    error: tofollowingsError,
+  } = userFollow
+
+
 
 
   return (
@@ -69,38 +100,53 @@ export default function Details({ match }) {
         <div className="profileCard">
           <div className="cardHeader">
             <div className="profilBg">
-              {user && user.coverPicture ?  (
-                 <img
-                src={"/api/uploads/image?filename=" + user.coverPicture}
-                alt=""
-              />
-              ):null}
-             
+              {user && user.coverPicture ? (
+                <img
+                  src={"/api/uploads/image?filename=" + user.coverPicture}
+                  alt=""
+                />
+              ) : null}
             </div>
             <div className="profileImg">
               {user && user.profilePicture ? (
-
-                 <img
-                src={"/api/uploads/image?filename=" + user.profilePicture}
-                alt=""
-              />
-              ):null}
-             
+                <img
+                  src={"/api/uploads/image?filename=" + user.profilePicture}
+                  alt=""
+                />
+              ) : null}
             </div>
           </div>
           <div className="cardBody">
-            {user && user.username ? (
+            {user && user.username ? <h3>{user.username}</h3> : null}
 
-                <h3>{user.username}</h3>
-            ):null}
-          
             <div className="friendInfo">
               <button>
                 {" "}
                 <i className="fas fa-user-friends"></i>
               </button>
 
-              <span>10 friends</span>
+              <span>{user.followings && user.followings.length} friends</span>
+              <span>
+                {userID === userInfo._id ? null : userID ===
+                  userInfo._id ? null : userInfo.followings.includes(userID) ? (
+                  <button
+                    className="unfollow"
+                    disabled={userInfo.followings.includes(
+                      userID === userInfo._id
+                    )}
+
+                    onClick={()=>{
+                      dispatch(unFollowSomeone(userID))
+                    }}
+                  >
+                    Unfollow
+                  </button>
+                ) : (
+                  <button className="follow" onClick={()=>{
+                    dispatch(toFollowSomeone(userID))
+                  }}>Follow</button>
+                )}
+              </span>
             </div>
           </div>
         </div>
@@ -118,11 +164,13 @@ export default function Details({ match }) {
             </p>
           )}
           {posts && posts.length
-            ? posts.map((post, id) => (
-                <div className="col" key={id}>
-                  <Post post={post} />
-                </div>
-              )).reverse()
+            ? posts
+                .map((post, id) => (
+                  <div className="col" key={id}>
+                    <Post post={post} />
+                  </div>
+                ))
+                .reverse()
             : null}
         </div>
       </div>
@@ -151,7 +199,7 @@ export default function Details({ match }) {
               : null}
           </div>
         </div>
-        <div className="friends">
+        <>
           <div className="followingContainer">
             <h3>{user.username}' followers</h3>
             {follewerLoading && <Loader />}
@@ -176,7 +224,7 @@ export default function Details({ match }) {
                 : null}
             </div>
           </div>
-        </div>
+        </>
       </div>
     </div>
   );

@@ -10,7 +10,11 @@ import {
   userListReducer,
   userDeleteReducer,
   userFollowingsReducer,
-  userFollowersReducer
+  userFollowersReducer,
+  userFriendsFollowingsReducer,
+  userFriendsFollowersReducer,
+  unFollowReducer,
+  toFollowReducer
 } from "./redux/reducers/userReducer";
 
 import {
@@ -31,6 +35,10 @@ const reducer = combineReducers({
   userList: userListReducer,
   userFollowings:userFollowingsReducer,
   userFollowes:userFollowersReducer,
+  userFriendsFollowings:userFriendsFollowingsReducer,
+  userFriendsFollowers:userFriendsFollowersReducer,
+  userUnfollow:unFollowReducer,
+  userFollow:toFollowReducer,
   postCreate: newPostReducer,
   postByUser : postListOUserReducer,
   postList: postListReducer,

@@ -103,7 +103,7 @@ export default function Home() {
               : null}
           </div>
         </div>
-        <div className="friends">
+        <>
           <div className="followingContainer">
             <h3>{userInfo.username}' followers</h3>
             {follewerLoading && <Loader />}
@@ -128,7 +128,7 @@ export default function Home() {
                 : null}
             </div>
           </div>
-        </div>
+        </>
       </div>
     </div>
   );

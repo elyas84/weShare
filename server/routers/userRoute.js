@@ -29,4 +29,9 @@ router.route("/:id/unfollow").put(private, userController.toUnFollow);
 // get friendList
 router.route("/followingsfriends/:id").get(private, userController.getFollowingFriends )
 router.route("/followerfriends/:id").get(private, userController.getFollwedFriends )
+
+// get friendsFollowings
+router.route("/friendsfollowings/:id").get(private, userController.getFriendsFollowings)
+// get friendsFollowers
+router.route("/friendsfollowers/:id").get(private, userController.getFriendsFollowers)
 module.exports = router;

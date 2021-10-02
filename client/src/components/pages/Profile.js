@@ -100,7 +100,6 @@ export default function Profile() {
         },
       };
       const res = await axios.post("/api/uploads/", formData, config);
-      // console.log("Bg: ", res.data);
       setBg(res.data);
       setUploading(false);
     } catch (error) {
@@ -124,20 +123,7 @@ export default function Profile() {
 
   return (
     <div className="myProfile">
-      <div className="start">
-        <ul className="following">
-          <h5>Following</h5>
-          <li>Jesur</li>
-          <li>Jesur</li>
-          <li>Jesur</li>
-        </ul>
-        <ul className="follower">
-          <h5>Followers</h5>
-          <li>Jesur</li>
-          <li>Jesur</li>
-          <li>Jesur</li>
-        </ul>
-      </div>
+    
       <div className="left">
         <div className="profileCard">
           <div className="cardHeader">
@@ -162,7 +148,7 @@ export default function Profile() {
                 <i className="fas fa-user-friends"></i>
               </button>
 
-              <span>10 friends</span>
+              <span>{ userInfo && userInfo.followings.length} friends</span>
             </div>
           </div>
         </div>

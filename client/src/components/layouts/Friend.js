@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/Friend.css";
 import {Link} from 'react-router-dom'
 export default function Friend({ fr }) {
-  console.log(fr);
+  // console.log(fr);
 
   return (
     <div className="friendCard">
@@ -20,11 +20,6 @@ export default function Friend({ fr }) {
         </div>
       </div>
       </Link>
-     
-      {/* <div className="friendCard_body">
-        <button className="follow">Follow</button>
-        <button className="unfollow">Unfollow</button>
-      </div> */}
     </div>
   );
 }

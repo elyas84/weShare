@@ -26,6 +26,18 @@ import {
   USER_FOLLWERS_REQUEST,
   USER_FOLLWERS_SUCCESS,
   USER_FOLLWERS_FAIL,
+  USER_FRIENDS_FOLLOWING_REQUEST,
+  USER_FRIENDS_FOLLOWING_SUCCESS,
+  USER_FRIENDS_FOLLOWING_FAIL,
+  USER_FRIENDS_FOLLWERS_REQUEST,
+  USER_FRIENDS_FOLLWERS_SUCCESS,
+  USER_FRIENDS_FOLLWERS_FAIL,
+  USER_TO_FOLLOW_REQUEST,
+  USER_TO_FOLLOW_SUCCESS,
+  USER_TO_FOLLOW_FAIL,
+  USER_TO_UNFOLLOW_REQUEST,
+  USER_TO_UNFOLLOW_SUCCESS,
+  USER_TO_UNFOLLOW_FAIL
 } from "../constence/userConst";
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -220,6 +232,108 @@ export const userFollowersReducer = (state = { followers: [] }, action) => {
       };
 
     case USER_FOLLWERS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const userFriendsFollowingsReducer = (state = { followings: [] }, action) => {
+  switch (action.type) {
+    case USER_FRIENDS_FOLLOWING_REQUEST:
+      return {
+        followings: [],
+        loading: true,
+      };
+
+    case USER_FRIENDS_FOLLOWING_SUCCESS:
+      return {
+        loading: false,
+        followings: action.payload,
+      };
+
+    case USER_FRIENDS_FOLLOWING_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const userFriendsFollowersReducer = (state = { followers: [] }, action) => {
+  switch (action.type) {
+    case USER_FRIENDS_FOLLWERS_REQUEST:
+      return {
+        followers: [],
+        loading: true,
+      };
+
+    case USER_FRIENDS_FOLLWERS_SUCCESS:
+      return {
+        loading: false,
+        followers: action.payload,
+      };
+
+    case USER_FRIENDS_FOLLWERS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+
+export const unFollowReducer = (state = { followings: [] }, action) => {
+  switch (action.type) {
+    case USER_TO_UNFOLLOW_REQUEST:
+      return {
+        followings: [],
+        loading: true,
+      };
+
+    case USER_TO_UNFOLLOW_SUCCESS:
+      return {
+        loading: false,
+        followings: action.payload,
+      };
+
+    case USER_TO_UNFOLLOW_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+
+export const toFollowReducer = (state = { }, action) => {
+  switch (action.type) {
+    case USER_TO_FOLLOW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case USER_TO_FOLLOW_SUCCESS:
+      return {
+        loading: false,
+        following: action.payload,
+      };
+
+    case USER_TO_FOLLOW_FAIL:
       return {
         loading: false,
         error: action.payload,

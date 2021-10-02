@@ -21,10 +21,21 @@ import {
   USER_FOLLOWING_REQUEST,
   USER_FOLLOWING_SUCCESS,
   USER_FOLLOWING_FAIL,
-
   USER_FOLLWERS_REQUEST,
   USER_FOLLWERS_SUCCESS,
   USER_FOLLWERS_FAIL,
+  USER_FRIENDS_FOLLOWING_REQUEST,
+  USER_FRIENDS_FOLLOWING_SUCCESS,
+  USER_FRIENDS_FOLLOWING_FAIL,
+  USER_FRIENDS_FOLLWERS_REQUEST,
+  USER_FRIENDS_FOLLWERS_SUCCESS,
+  USER_FRIENDS_FOLLWERS_FAIL,
+  USER_TO_FOLLOW_REQUEST,
+  USER_TO_FOLLOW_SUCCESS,
+  USER_TO_FOLLOW_FAIL,
+  USER_TO_UNFOLLOW_REQUEST,
+  USER_TO_UNFOLLOW_SUCCESS,
+  USER_TO_UNFOLLOW_FAIL,
 } from "../constence/userConst";
 
 import axios from "axios";
@@ -264,7 +275,10 @@ export const getFollowings = (id) => async (dispatch, getState) => {
         Authorization: "Bearer " + userInfo.token,
       },
     };
-    const response = await axios.get("/api/users/followingsfriends/" + id, config);
+    const response = await axios.get(
+      "/api/users/followingsfriends/" + id,
+      config
+    );
     // console.log(response.data)
 
     dispatch({
@@ -284,7 +298,6 @@ export const getFollowings = (id) => async (dispatch, getState) => {
   }
 };
 
-
 export const getFollowers = (id) => async (dispatch, getState) => {
   // in this case ID can be a profile
   try {
@@ -301,8 +314,10 @@ export const getFollowers = (id) => async (dispatch, getState) => {
         Authorization: "Bearer " + userInfo.token,
       },
     };
-    const response = await axios.get("/api/users/followerfriends/" + id, config);
-    console.log(response.data)
+    const response = await axios.get(
+      "/api/users/followerfriends/" + id,
+      config
+    );
 
     dispatch({
       type: USER_FOLLWERS_SUCCESS,
@@ -312,6 +327,153 @@ export const getFollowers = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_FOLLWERS_FAIL,
+
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getUserFriendsFollowings = (id) => async (dispatch, getState) => {
+  // in this case ID can be a profile
+  try {
+    dispatch({
+      type: USER_FRIENDS_FOLLOWING_REQUEST,
+    });
+
+    const {
+      loginOfUser: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + userInfo.token,
+      },
+    };
+    const response = await axios.get(
+      "/api/users/friendsfollowings/" + id,
+      config
+    );
+    // console.log(response.data)
+
+    dispatch({
+      type: USER_FRIENDS_FOLLOWING_SUCCESS,
+
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_FRIENDS_FOLLOWING_FAIL,
+
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getUserFriendsFollowers = (id) => async (dispatch, getState) => {
+  // in this case ID can be a profile
+  try {
+    dispatch({
+      type: USER_FRIENDS_FOLLWERS_REQUEST,
+    });
+
+    const {
+      loginOfUser: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + userInfo.token,
+      },
+    };
+    const response = await axios.get(
+      "/api/users/friendsfollowers/" + id,
+      config
+    );
+
+    dispatch({
+      type: USER_FRIENDS_FOLLWERS_SUCCESS,
+
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_FRIENDS_FOLLWERS_FAIL,
+
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const toFollowSomeone = (id) => async (dispatch, getState) => {
+  // in this case ID can be a profile
+  try {
+    dispatch({
+      type: USER_TO_FOLLOW_REQUEST,
+    });
+
+    const {
+      loginOfUser: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + userInfo.token,
+      },
+    };
+    const response = await axios.put("/api/users/" + id + "/follow", config);
+
+    dispatch({
+      type: USER_TO_FOLLOW_SUCCESS,
+
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_TO_FOLLOW_FAIL,
+
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const unFollowSomeone = (id) => async (dispatch, getState) => {
+  // in this case ID can be a profile
+  try {
+    dispatch({
+      type: USER_TO_UNFOLLOW_REQUEST,
+    });
+
+    const {
+      loginOfUser: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + userInfo.token,
+      },
+    };
+    const response = await axios.put("/api/users/" + id + "/unfollow", config);
+
+    dispatch({
+      type: USER_TO_UNFOLLOW_SUCCESS,
+
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_TO_UNFOLLOW_FAIL,
 
       payload:
         error.response && error.response.data.message

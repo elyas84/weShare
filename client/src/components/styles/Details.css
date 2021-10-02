@@ -9,10 +9,8 @@
     flex: 1;
     
 }
-
-.friendZon {
-    flex: .5;
+.friends {
+    margin-left: 1rem;
     border: 1px solid lightgray;
     padding: 1rem;
-    margin-left: 0.5rem;
 }
