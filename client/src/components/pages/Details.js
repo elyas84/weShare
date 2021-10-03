@@ -23,7 +23,7 @@ export default function Details({ match }) {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user, loading, error } = userDetails;
-  console.log("user ", user);
+  console.log("userInfo   ", userInfo  );
 
   const postByUser = useSelector((state) => state.postByUser);
   const {
@@ -127,8 +127,7 @@ export default function Details({ match }) {
 
               <span>{user.followings && user.followings.length} friends</span>
               <span>
-                {userID === userInfo._id ? null : userID ===
-                  userInfo._id ? null : userInfo.followings.includes(userID) ? (
+                {userID === userInfo._id ? null : userInfo.followings.includes(userID) ? (
                   <button
                     className="unfollow"
                     disabled={userInfo.followings.includes(

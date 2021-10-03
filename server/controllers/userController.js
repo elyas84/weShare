@@ -237,21 +237,26 @@ exports.deleteAccount = async (req, res) => {
 // @access private
 
 exports.toFollow = async (req, res) => {
-
-  if (req.user._id !== req.params.id) {
+  if (req.user._id == req.params.id) {
+    return res.status(403).json({
+      message: "you can not follow yourself.",
+    });
+  } else {
     try {
-      const userToFollow = await User.findById(req.params.id);
-      const currentUser = await User.findById(req.user._id);
+      const user = await User.findById(req.params.id);
+      const loggedInUser = await User.findById(req.user._id);
 
-      if (!currentUser.followers.includes(userToFollow)) {
-        await userToFollow.updateOne({ $push: { followers: req.user._id } });
-        await currentUser.updateOne({ $push: { followings: req.params.id } });
-        res.status(200).json({
-          message: "User has been followed.",
+      // console.log(user._id)
+
+      if (loggedInUser.followings.includes(user._id)) {
+        return res.status(403).json({
+          message: "you alreday following " + user.username,
         });
       } else {
-        return res.status(400).json({
-          message: "You already follow this user.",
+        await loggedInUser.updateOne({ $push: { followings: user } });
+        await user.updateOne({ $push: { followers: loggedInUser } });
+        return res.status(200).json({
+          message: "now you are following " + user.username,
         });
       }
     } catch (error) {
@@ -260,10 +265,6 @@ exports.toFollow = async (req, res) => {
         message: error,
       });
     }
-  } else {
-    return res.status(400).json({
-      message: "You can't follow yourself.",
-    });
   }
 };
 
@@ -274,18 +275,18 @@ exports.toFollow = async (req, res) => {
 exports.toUnFollow = async (req, res) => {
   if (req.user._id !== req.params.id) {
     try {
-      const userToUnFollow = await User.findById(req.params.id);
-      const currentUser = await User.findById(req.user._id);
+      const user = await User.findById(req.params.id);
+      const loggedInUser = await User.findById(req.user._id);
 
-      if (userToUnFollow.followers.includes(req.user._id)) {
-        await userToUnFollow.updateOne({ $pull: { followers: req.user._id } });
-        await currentUser.updateOne({ $pull: { followings: req.params.id } });
+      if (loggedInUser.followings.includes(req.params.id)) {
+        await loggedInUser.updateOne({ $pull: { followings: req.params.id } });
+        await user.updateOne({ $pull: { followers: req.user._id } });
         res.status(200).json({
-          message: "User has been unfollowed.",
+          message: user.username + " is now unfollowed",
         });
       } else {
         return res.status(400).json({
-          message: "You already unfollow this user.",
+          message: "You already unfollow " + user.username,
         });
       }
     } catch (error) {

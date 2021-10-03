@@ -43,7 +43,7 @@ export default function Profile() {
     if (!userInfo.username) {
       history.push("/");
     } else {
-      if ( updateSuccess) {
+      if (updateSuccess) {
         dispatch({ type: USER_PROFILE_UPDATE_REST });
 
         dispatch(getUserDetails("profile"));
@@ -123,7 +123,6 @@ export default function Profile() {
 
   return (
     <div className="myProfile">
-    
       <div className="left">
         <div className="profileCard">
           <div className="cardHeader">
@@ -148,7 +147,9 @@ export default function Profile() {
                 <i className="fas fa-user-friends"></i>
               </button>
 
-              <span>{ userInfo && userInfo.followings.length} friends</span>
+              <span>
+                {userInfo.followings && userInfo.followings.length} friends
+              </span>
             </div>
           </div>
         </div>
@@ -166,11 +167,13 @@ export default function Profile() {
             </p>
           )}
           {myPostList && myPostList.length
-            ? myPostList.map((post, id) => (
-                <div className="col" key={id}>
-                  <Post post={post} />
-                </div>
-              )).reverse()
+            ? myPostList
+                .map((post, id) => (
+                  <div className="col" key={id}>
+                    <Post post={post} />
+                  </div>
+                ))
+                .reverse()
             : null}
         </div>
       </div>
